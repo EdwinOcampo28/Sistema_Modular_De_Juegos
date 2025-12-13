@@ -54,13 +54,22 @@ def guardar_ranking(juego, nombre, puntaje):
 
 def mostrar_ranking(juego):
     ranking = cargar_ranking(juego)
-    print(GREEN + BOLD + f"\n╔════ RANKING TOP 5: {juego} ═══╗" + RESET)
+
+    titulo = f" RANKING TOP 5: {juego} "
+    ancho = len(titulo) + 2
+
+    print(GREEN + BOLD + "╔" + "═" * ancho + "╗" + RESET)
+    print(GREEN + BOLD + "║" + titulo +  " ║" + RESET)
+
     if ranking:
         for i, (name, score) in enumerate(ranking, start=1):
-            print(CYAN + f"           {i}. {name} - {score} puntos" + RESET)
+            linea = f"      {i}. {name} - {score} puntos"
+            print(CYAN + "║ " + linea.ljust(ancho - 1) + "║" + RESET)
     else:
-        print(YELLOW + "No hay registros todavía." + RESET)
-    print(GREEN + "╚══════════════════════════════════════╝" + RESET)
+        print(YELLOW + "║ " + "No hay registros todavía.".ljust(ancho - 1) + "║" + RESET)
+
+    print(GREEN + BOLD + "╚" + "═" * ancho + "╝" + RESET)
+
 
 # ============================================================
 #                  NOMBRE
@@ -79,9 +88,9 @@ def solicitar_nombre():
 def JuegoAdivinaNumero():
     clear()
     mostrar_ranking("Adivina Número")
-    print(YELLOW + BOLD + "╔══════════════════════════════════════╗" + RESET)
-    print(YELLOW + BOLD + "║        Juego: Adivina el Número      ║" + RESET)
-    print(YELLOW + BOLD + "╚══════════════════════════════════════╝" + RESET)
+    print(YELLOW + BOLD + "╔═════════════════════════════════╗" + RESET)
+    print(YELLOW + BOLD + "║    Juego:  Adivina el Número    ║" + RESET)
+    print(YELLOW + BOLD + "╚═════════════════════════════════╝" + RESET)
 
     nombre = solicitar_nombre()
     numero_secreto = random.randint(1,50)
@@ -90,7 +99,7 @@ def JuegoAdivinaNumero():
 
     while intentos > 0:
         try:
-            adivina = int(input(CYAN + f"Tienes {intentos} intentos. Ingresa tu número: " + RESET))
+            adivina = int(input(CYAN + f"Tienes {intentos} intentos. Ingresa tu número: 1-50 " + RESET))
         except:
             print(RED + "Entrada inválida." + RESET)
             continue
@@ -121,56 +130,91 @@ def JuegoAdivinaNumero():
     pause()
 
 def JuegoPiedraPapelTijera():
-    clear()
-    print(GREEN + BOLD + "╔══════════════════════════════════════╗" + RESET)
-    print(GREEN + BOLD + "║      Juego: Piedra Papel Tijera      ║" + RESET)
-    print(GREEN + BOLD + "╚══════════════════════════════════════╝" + RESET)
+    opciones = {"1": "piedra", "2": "papel", "3": "tijera"}
 
-    opciones = {"1":"piedra","2":"papel","3":"tijera"}
-    jugador = input(CYAN + "Elige 1 Piedra 2 Papel  3 Tijera " + RESET)
-    while jugador not in opciones:
-        jugador = input(RED + "Opción inválida. Elige 1, 2 o 3: " + RESET)
-    jugador = opciones[jugador]
+    while True:
+        clear()
+        print(GREEN + BOLD + "╔══════════════════════════════════════╗" + RESET)
+        print(GREEN + BOLD + "║     Juego: Piedra Papel  Tijera      ║" + RESET)
+        print(GREEN + BOLD + "╚══════════════════════════════════════╝" + RESET)
 
-    maquina = random.choice(list(opciones.values()))
-    print(YELLOW + f"Computadora eligió: {maquina}" + RESET)
-    if jugador == maquina:
-        print(YELLOW + "Empate!" + RESET)
-    elif (jugador == "piedra" and maquina == "tijera") or \
-         (jugador == "papel" and maquina == "piedra") or \
-         (jugador == "tijera" and maquina == "papel"):
-        print(GREEN + "¡Ganaste!" + RESET)
-    else:
-        print(RED + "Perdiste." + RESET)
-    pause()
+        print(YELLOW + "Ingresa 0 para salir al menú." + RESET)
+        jugador = input(
+    GREEN + BOLD + "▶ " +
+    CYAN + "1" + RESET + " Piedra  |  " +
+    CYAN + "2" + RESET + " Papel  |  " +
+    CYAN + "3" + RESET + " Tijera  " +
+    YELLOW + "(0 = Salir): " + RESET
+)
+
+
+        if jugador == "0":
+            break
+
+        if jugador not in opciones:
+            print(RED + "Opción inválida." + RESET)
+            pause()
+            continue
+
+        jugador = opciones[jugador]
+        maquina = random.choice(list(opciones.values()))
+
+        print(YELLOW + f"Computadora eligió: {maquina}" + RESET)
+
+        if jugador == maquina:
+            print(YELLOW + "🤝 ¡Empate!" + RESET)
+        elif (jugador == "piedra" and maquina == "tijera") or \
+             (jugador == "papel" and maquina == "piedra") or \
+             (jugador == "tijera" and maquina == "papel"):
+            print(GREEN + "🎉 ¡Ganaste!" + RESET)
+        else:
+            print(RED + "❌ Perdiste." + RESET)
+
+        pause()
+
 
 def JuegoDados():
-    clear()
-    print(GREEN + BOLD + "╔══════════════════════════════════════╗" + RESET)
-    print(GREEN + BOLD + "║        Juego: Adivina el Dado        ║" + RESET)
-    print(GREEN + BOLD + "╚══════════════════════════════════════╝" + RESET)
+    while True:
+        clear()
+        print(GREEN + BOLD + "╔══════════════════════════════════════╗" + RESET)
+        print(GREEN + BOLD + "║        Juego: Adivina el Dado        ║" + RESET)
+        print(GREEN + BOLD + "╚══════════════════════════════════════╝" + RESET)
 
-    dado = random.randint(1,6)
-    try:
-        adivina = int(input(CYAN + "Adivina el número del dado (1-6): " + RESET))
-    except:
-        adivina = 0
+        print(YELLOW + "Ingresa 0 para salir al menú." + RESET)
 
-    print(YELLOW + f"Número del dado: {dado}" + RESET)
-    if adivina == dado:
-        print(GREEN + "¡Acertaste!" + RESET)
-    else:
-        print(RED + "No acertaste." + RESET)
-    pause()
+        try:
+            adivina = int(input(CYAN + "Adivina el número del dado (1-6): " + RESET))
+        except:
+            print(RED + "Entrada inválida." + RESET)
+            pause()
+            continue
+
+        if adivina == 0:
+            break
+
+        if adivina < 1 or adivina > 6:
+            print(RED + "El número debe estar entre 1 y 6." + RESET)
+            pause()
+            continue
+
+        dado = random.randint(1,6)
+        print(YELLOW + f"Número del dado: {dado}" + RESET)
+
+        if adivina == dado:
+            print(GREEN + "🎉 ¡Acertaste!" + RESET)
+        else:
+            print(RED + "❌ No acertaste." + RESET)
+
+        pause()
 
 def JuegoMemoria():
     clear()
     juego = "Memoria"
     mostrar_ranking(juego)
 
-    print(GREEN + BOLD + "╔══════════════════════════════════════╗" + RESET)
-    print(GREEN + BOLD + "║     Juego de Memoria PRO             ║" + RESET)
-    print(GREEN + BOLD + "╚══════════════════════════════════════╝" + RESET)
+    print(GREEN + BOLD + "╔═════════════════════════════════╗" + RESET)
+    print(GREEN + BOLD + "║      Juego: de Memoria PRO      ║" + RESET)
+    print(GREEN + BOLD + "╚═════════════════════════════════╝" + RESET)
 
     nombre = solicitar_nombre()
 
@@ -234,9 +278,9 @@ def JuegoMemoria():
 def JuegoMatematicaRapida():
     clear()
     mostrar_ranking("Matematica Rapida")
-    print(GREEN + BOLD + "╔══════════════════════════════════════╗" + RESET)
-    print(GREEN + BOLD + "║       Juego: Matemática Rápida       ║" + RESET)
-    print(GREEN + BOLD + "╚══════════════════════════════════════╝" + RESET)
+    print(GREEN + BOLD + "╔════════════════════════════════════╗" + RESET)
+    print(GREEN + BOLD + "║      Juego: Matemática Rápida      ║" + RESET)
+    print(GREEN + BOLD + "╚════════════════════════════════════╝" + RESET)
 
     nombre = solicitar_nombre()
     aciertos = 0
@@ -265,9 +309,9 @@ def JuegoMatematicaRapida():
 def JuegoAdivinaProducto():
     clear()
     mostrar_ranking("Adivina Producto")
-    print(GREEN + BOLD + "╔══════════════════════════════════════╗" + RESET)
-    print(GREEN + BOLD + "║        Juego: Adivina el Producto    ║" + RESET)
-    print(GREEN + BOLD + "╚══════════════════════════════════════╝" + RESET)
+    print(GREEN + BOLD + "╔═══════════════════════════════════╗" + RESET)
+    print(GREEN + BOLD + "║     Juego: Adivina el Producto    ║" + RESET)
+    print(GREEN + BOLD + "╚═══════════════════════════════════╝" + RESET)
 
     nombre = solicitar_nombre()
     aciertos = 0
@@ -296,9 +340,9 @@ def JuegoAdivinaProducto():
 def JuegoMayorMenor():
     clear()
     mostrar_ranking("Mayor o Menor")
-    print(GREEN + BOLD + "╔══════════════════════════════════════╗" + RESET)
-    print(GREEN + BOLD + "║        Juego: Mayor o Menor          ║" + RESET)
-    print(GREEN + BOLD + "╚══════════════════════════════════════╝" + RESET)
+    print(GREEN + BOLD + "╔════════════════════════════════╗" + RESET)
+    print(GREEN + BOLD + "║      Juego: Mayor o Menor      ║" + RESET)
+    print(GREEN + BOLD + "╚════════════════════════════════╝" + RESET)
 
     nombre = solicitar_nombre()
     anterior = random.randint(1,100)
@@ -328,12 +372,29 @@ def JuegoAdivinaPalabra():
     juego = "Adivina Palabra"
     mostrar_ranking(juego)
     
-    print(GREEN + BOLD + "╔══════════════════════════════════════╗" + RESET)
-    print(GREEN + BOLD + "║       Juego: Adivina la Palabra      ║" + RESET)
-    print(GREEN + BOLD + "╚══════════════════════════════════════╝" + RESET)
+    print(GREEN + BOLD + "╔══════════════════════════════════╗" + RESET)
+    print(GREEN + BOLD + "║     Juego: Adivina la Palabra    ║" + RESET)
+    print(GREEN + BOLD + "╚══════════════════════════════════╝" + RESET)
 
     nombre = solicitar_nombre()
-    palabras = ["python", "programa", "juego", "ranking", "palabra", "hacker", "computadora"]
+    palabras = [ # Programación / tecnología
+    "python", "codigo", "programa", "algoritmo", "variable", "funcion",
+    "clase", "objeto", "modulo", "sistema", "software", "hardware",
+    "computadora", "teclado", "pantalla", "internet", "servidor",
+    "archivo", "datos", "ranking", "juego",
+
+    # Juegos / lógica
+    "memoria", "nivel", "puntaje", "intentos", "dificultad",
+    "acierto", "error", "secuencia", "logica", "reto",
+
+    # Estilo hacker / gamer
+    "hacker", "terminal", "consola", "linux", "windows",
+    "comando", "seguridad", "encriptar", "firewall",
+
+    # Palabras generales (equilibran dificultad)
+    "palabra", "mensaje", "numero", "usuario", "tiempo",
+    "color", "verde", "azul", "rojo", "negro",
+    "rapido", "lento", "fuerte", "simple", "complejo"]
     palabra_secreta = random.choice(palabras).lower()
     aciertos = 0
     intentos = 6
@@ -380,9 +441,9 @@ def JuegoAdivinaPalabra():
 def JuegoSerpientesMatematicas():
     clear()
     mostrar_ranking("Serpientes Matemáticas")
-    print(GREEN + BOLD + "╔══════════════════════════════════════╗" + RESET)
-    print(GREEN + BOLD + "║      Juego: Serpientes Matemáticas   ║" + RESET)
-    print(GREEN + BOLD + "╚══════════════════════════════════════╝" + RESET)
+    print(GREEN + BOLD + "╔═════════════════════════════════════════╗" + RESET)
+    print(GREEN + BOLD + "║      Juego: Serpientes Matemáticas      ║" + RESET)
+    print(GREEN + BOLD + "╚═════════════════════════════════════════╝" + RESET)
 
     nombre = solicitar_nombre()
     aciertos = 0
@@ -443,7 +504,7 @@ def main():
         print(CYAN + "\n1. Juego: Adivina Número")
         print("2. Juego: Piedra, Papel o Tijera")
         print("3. Juego: Dados")
-        print("4. Juego de Memoria")
+        print("4. Juego: de Memoria")
         print("5. Juego: Matemática Rápida")
         print("6. Juego: Adivina el Producto")
         print("7. Juego: Mayor o Menor")

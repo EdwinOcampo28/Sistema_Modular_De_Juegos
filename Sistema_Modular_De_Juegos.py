@@ -59,7 +59,7 @@ def mostrar_ranking(juego):
     ancho = len(titulo) + 2
 
     print(GREEN + BOLD + "╔" + "═" * ancho + "╗" + RESET)
-    print(GREEN + BOLD + "║" + titulo +  " ║" + RESET)
+    print(GREEN + BOLD + "║ " + titulo  + " ║" + RESET)
 
     if ranking:
         for i, (name, score) in enumerate(ranking, start=1):
@@ -209,7 +209,7 @@ def JuegoDados():
 
 def JuegoMemoria():
     clear()
-    juego = "Memoria"
+    juego = " Memoria Pro  "
     mostrar_ranking(juego)
 
     print(GREEN + BOLD + "╔═════════════════════════════════╗" + RESET)
@@ -345,11 +345,12 @@ def JuegoMayorMenor():
     print(GREEN + BOLD + "╚════════════════════════════════╝" + RESET)
 
     nombre = solicitar_nombre()
-    anterior = random.randint(1,100)
+    anterior = random.randint(1,50)
     aciertos = 0
     while True:
+        print(CYAN + f"Números Entre 1-50" + RESET)
         print(CYAN + f"Número actual: {anterior}" + RESET)
-        siguiente = random.randint(1,100)
+        siguiente = random.randint(1,50)
         eleccion = input(CYAN + "¿El siguiente será Mayor (M) o menor (m)? " + RESET)
         if eleccion not in ["M","m"]:
             print(RED + "Opción inválida." + RESET)
@@ -497,9 +498,9 @@ def main():
     opcion = 0
     while opcion != 12:
         clear()
-        print(GREEN + BOLD + "╔══════════════════════════════════════╗" + RESET)
-        print(GREEN + BOLD + "║      SISTEMA MODULAR DE JUEGOS       ║" + RESET)
-        print(GREEN + BOLD + "╚══════════════════════════════════════╝" + RESET)
+        print(GREEN + BOLD + "╔═════════════════════════════════╗" + RESET)
+        print(GREEN + BOLD + "║    SISTEMA MODULAR DE JUEGOS    ║" + RESET)
+        print(GREEN + BOLD + "╚═════════════════════════════════╝" + RESET)
 
         print(CYAN + "\n1. Juego: Adivina Número")
         print("2. Juego: Piedra, Papel o Tijera")
@@ -511,7 +512,7 @@ def main():
         print("8. Juego: Adivina la Palabra")
         print("9. Juego: Serpientes Matemáticas")  # en el menú
         print("10. ❌ SALIR" + RESET)
-        print(GREEN + "========================================" + RESET)
+        print(GREEN + "===================================" + RESET)
 
         try:
             opcion = int(input(YELLOW + "Seleccione una opción: " + RESET))

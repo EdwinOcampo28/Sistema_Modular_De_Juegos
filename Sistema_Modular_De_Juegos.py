@@ -108,7 +108,7 @@ def JuegoAdivinaNumero():
             print(GREEN + "🎉 ¡Felicidades! Adivinaste el número." + RESET)
             aciertos = intentos  # Puntaje basado en intentos restantes
             break
-        elif abs(adivina - numero_secreto) <= 5:
+        elif abs(adivina - numero_secreto) <= 3:
             if adivina < numero_secreto:
                 print(CYAN + "⚠️ Muy cerca, sube un poco." + RESET)
             else:
@@ -490,6 +490,14 @@ def JuegoSerpientesMatematicas():
     mostrar_ranking("Serpientes Matemáticas")
     pause()
 
+def creditosCreador():
+    clear()
+    print(GREEN + BOLD + "╔═════════════════════════════════╗" + RESET)
+    print(CYAN + BOLD +  "║     Edwin Ocampo Programer      ║" + RESET)
+    print(GREEN + BOLD + "╚═════════════════════════════════╝" + RESET)
+    print(CYAN + "\nEste sistema modular de juegos fue creado por:")
+    print("GitHub: EdwinOcampo28@users.noreply")
+
 
 # ============================================================
 #                  MENÚ PRINCIPAL
@@ -511,7 +519,8 @@ def main():
         print("7. Juego: Mayor o Menor")
         print("8. Juego: Adivina la Palabra")
         print("9. Juego: Serpientes Matemáticas")  # en el menú
-        print("10. ❌ SALIR" + RESET)
+        print("10. Créditos del Creador")
+        print("11. ❌ SALIR" + RESET)
         print(GREEN + "===================================" + RESET)
 
         try:
@@ -538,6 +547,9 @@ def main():
         elif opcion == 9:
             JuegoSerpientesMatematicas()
         elif opcion == 10:
+            creditosCreador()
+            pause()
+        elif opcion == 11:
             print(GREEN + "Saliendo del sistema..." + RESET)
             time.sleep(2)
             break
